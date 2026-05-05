@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms</title>
+
+    <link rel="stylesheet" href="../css/HOTEL.css">
+</head>
+
+<body>
+
+<div class="featurs-3">
+    <div class="container">
+        <h1 class="pro" id="title"> Available Rooms </h1>
+        <p class="pro-1"><b>Choose your room</b></p>
+
+        <div class="protoflio">
+
+            <div class="feat-1">
+                <img src="../images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg" class="one">
+                <div class="text">
+                    <h3>Single Room</h3>
+                    <p>A comfortable single room with basic facilities, perfect for solo travelers.</p>
+                </div>
+            </div> 
+
+            <div class="feat-1">
+                <img src="../images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg" class="one">
+                <div class="text">
+                    <h3>Double Room</h3>
+                    <p>Spacious room with a double bed, ideal for couples or two guests.</p>
+                </div>
+            </div>
+
+            <div class="feat-1">
+                <img src="../images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg" class="one">
+                <div class="text">
+                    <h3>Family Room</h3>
+                    <p>Large room suitable for families with multiple beds and extra space.</p>
+                </div>
+            </div>
+
+            <div class="feat-1">
+                <img src="../images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg" class="one">
+                <div class="text">
+                    <h3>Economy Room</h3>
+                    <p>Affordable option with essential amenities for budget travelers.</p>
+                </div>
+            </div>
+
+            <div class="feat-1">
+                <img src="../images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg" class="one">
+                <div class="text">
+                    <h3>Deluxe Room</h3>
+                    <p>Elegant room with modern design, offering extra comfort and premium features.</p>
+                </div>
+            </div>
+
+            <div class="feat-1">
+                <img src="../images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg" class="one">
+                <div class="text">
+                    <h3>Suite Room</h3>
+                    <p>Luxury suite with separate living area, perfect for a high-end experience.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="booking-box">
+
+            <h2 id="roomName">No Room Selected</h2>
+
+            <p>Room Price: $<span id="price">0</span></p>
+
+            <p>Select number of days:</p>
+
+            <div class="counter">
+                <button onclick="decrease()">-</button>
+                <span id="days">0</span>
+                <button onclick="increase()">+</button>
+            </div>
+
+            <button onclick="calc()" class="calc-btn">Calc Cost</button>
+
+            <h3>Total Price: $<span id="total">0</span></h3>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const hotelName = params.get("hotel");
+
+if (hotelName) {
+    document.getElementById("title").innerText = "Available Rooms at " + hotelName;
+}
+</script>
+
+<script>
+let price = 0;
+let days = 0;
+
+document.querySelectorAll(".feat-1").forEach(room => {
+    room.onclick = function () {
+
+        document.querySelectorAll(".feat-1").forEach(r => r.classList.remove("active"));
+        this.classList.add("active");
+
+        let name = this.querySelector("h3").innerText;
+
+        if (name === "Single Room") price = 50;
+        else if (name === "Double Room") price = 80;
+        else if (name === "Family Room") price = 120;
+        else if (name === "Economy Room") price = 40;
+        else if (name === "Deluxe Room") price = 150;
+        else if (name === "Suite Room") price = 200;
+
+        document.getElementById("roomName").innerText = name;
+        document.getElementById("price").innerText = price;
+
+        days = 0;
+        document.getElementById("days").innerText = 0;
+        document.getElementById("total").innerText = 0;
+    }
+});
+
+function increase() {
+    days++;
+    document.getElementById("days").innerText = days;
+}
+
+function decrease() {
+    if (days > 0) days--;
+    document.getElementById("days").innerText = days;
+}
+
+function calc() {
+    if (price === 0) {
+        alert("Please select a room first");
+        return;
+    }
+
+    document.getElementById("total").innerText = days * price;
+}
+</script>
+
+</body>
+</html>
